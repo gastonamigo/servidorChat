@@ -12,6 +12,7 @@ Swal.fire({
   allowOutsideClick: false,
 }).then((result) => {
   username = result.value;
+  socket.emit("new-user", username);
 });
 
 const chatInput = document.getElementById("chat-input");
@@ -37,4 +38,12 @@ socket.on("messages", (data) => {
   });
 
   messagesPanel.innerHTML = messages;
+});
+socket.on("new-user", (username) => {
+    swal.fire({
+        title: `${username} se unido al chat`,
+        toast: true,
+        position: "top-end",
+    });
+
 });
